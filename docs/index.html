@@ -1,7 +1,511 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplelightbox/dist/simple-lightbox.min.css">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/i9QKIgG.png">
+    <title>Dream Art by Shawn Lawrence</title>
+    <style>
+        /* Logo and title style */
+        .nav-logo {
+            height: 60px; /* Logo size */
+            vertical-align: middle; /* Aligns the logo with the text */
+        }
+
+        .nav-logo-link, .nav-title-link {
+            text-decoration: none; /* Removes the underline from the link */
+            color: black; /* Sets the text color to black */
+            outline: none; /* Remove outline on focus for accessibility, use with caution */
+            box-shadow: none; /* Remove box-shadow if it's being applied */
+        }
+        
+        .nav-logo-link:focus, .nav-title-link:focus {
+            outline: none;
+            box-shadow: none; /* Also remove box-shadow on focus */
+        }
+
+        /* Navigation bar style */
+        nav.container-fluid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc; /* Thin line */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Shadow effect */
+            padding: 0.5rem 1rem;
+        }
+
+        /* Left side of the navbar */
+        .navbar-header {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Navigation items */
+        .navbar-nav {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 10px; /* Space between nav items */
+        }
+
+        .navbar-nav li a {
+            font-size: 0.8em; /* Smaller font size for nav items */
+            padding: 5px 10px; /* Padding for nav items */
+            transition: background-color 0.3s; /* Transition for hover effect */
+            display: inline-block; /* Ensures padding and other box-model properties work */
+        }
+        
+        /* Hover styles for About and Gallery buttons */
+        .navbar-nav li a:hover:not(.contact-btn) {
+            background-color: rgba(135, 206, 255, 0.3); /* 50% transparent background color */
+            border-radius: 5px; /* Rounded corners on hover */
+        }
+        
+        /* Hover style for Contact button */
+        .navbar-nav li a.contact-btn:hover {
+            background-color: #89cff0; /* Maintain the background if needed */
+        }
+
+
+        /* Navigation title style */
+        nav ul li:first-child strong {
+            font-size: 1.3em; /* Larger font size for nav title */
+            margin-right: 10px; /* Space after the title */
+        }
+
+         html {
+            scroll-behavior: smooth; /* This enables smooth scrolling for anchor links */
+        }
+
+        /* Rest of the styles ... */
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+            top: -15px; /* Move the image upwards */
+        }
+
+        .hero-image img {
+            width: 100%;
+            transition: transform 10s ease-out;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.1);
+        }
+
+        .hero-text {
+            position: absolute;
+            right: 63px;
+            bottom: 35px;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 30px 20px 20px 20px;
+            border-radius: 5px;
+        }
+
+        /* ... Additional styles */
+        .bold-authentic-text {
+            font-size: 1.3em; /* Adjusts the size to 1.3 times the current size */
+        }
+
+        .section-divider {
+            border-top: 1px solid #ccc; /* Thin light grey line */
+            margin-top: 10px; /* Adjust space above the line */
+            margin-bottom: 50px; /* Adjust space below the line */
+        }
+
+         /* ... Additional styles */
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplelightbox/dist/simple-lightbox.min.css">
+   
+          .artwork-item img:hover {
+                transform: scale(1.05); /* Adjust scale value to desired effect */
+                cursor: pointer; /* Changes cursor to indicate clickable items */
+            }
+    
+            /* Flex layout for artwork gallery */
+            .artwork-gallery {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr); /* Adjusted for finer control */
+                grid-gap: 5px;
+            }
+            
+            .artwork-gallery .artwork-item img:hover {
+                transform: scale(1.05); /* Adjust scale value to desired effect */
+                cursor: pointer; /* Changes cursor to indicate clickable items */
+                transition: transform 0.3s ease-in-out; /* Smooth transition for scale */
+            }
+            
+            .artwork-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        
+        /* Assign grid areas to your items */
+        .artwork-item:nth-child(1) { grid-area: 1 / 1 / 3 / 6; } /* Big image on the left */
+        .artwork-item:nth-child(2) { grid-area: 1 / 6 / 2 / 9; } /* Top row, middle */
+        .artwork-item:nth-child(3) { grid-area: 1 / 9 / 2 / 13; } /* Top row, right */
+        .artwork-item:nth-child(4) { grid-area: 2 / 6 / 3 / 10; } /* Bottom left, middle */
+        .artwork-item:nth-child(5) { grid-area: 2 / 10 / 3 / 13; } /* Bottom middle, middle */
+        .artwork-item:nth-child(6) { grid-area: 3 / 1 / 4 / 4; } /* Bottom right, middle */
+        .artwork-item:nth-child(7) { grid-area: 3 / 4 / 4 / 7; } /* Second row, left */
+        .artwork-item:nth-child(8) { grid-area: 3 / 7 / 4 / 13; } /* Second row, middle */
+        .artwork-item:nth-child(9) { grid-area: 4 / 1 / 5 / 4; } /* Second row, right */
+        .artwork-item:nth-child(10) { grid-area: 4 / 4 / 5 / 8; } /* Second row, far right */
+        .artwork-item:nth-child(11) { grid-area: 4 / 8 / 5 / 11; }
+        .artwork-item:nth-child(12) { grid-area: 4 / 11 / 5 / 13; } 
+        .artwork-item:nth-child(13) { grid-area: 5 / 1 / 6 / 4; } 
+        .artwork-item:nth-child(14) { grid-area: 5 / 4 / 6 / 6; } 
+        .artwork-item:nth-child(15) { grid-area: 5 / 6 / 6 / 9; } 
+        .artwork-item:nth-child(16) { grid-area: 5 / 9 / 6 / 13; } 
+        .artwork-item:nth-child(17) { grid-area: 6 / 1 / 7 / 9; } 
+        .artwork-item:nth-child(18) { grid-area: 6 / 9 / 7 / 13; } 
+        .artwork-item:nth-child(19) { grid-area: 7 / 1 / 8 / 4; } 
+        .artwork-item:nth-child(20) { grid-area: 7 / 4 / 8 / 8; } 
+        .artwork-item:nth-child(21) { grid-area: 7 / 8 / 8 / 13; } 
+        .artwork-item:nth-child(22) { grid-area: 8 / 1 / 9 / 13; } 
+
+        /* Add this new rule to hide the 'Lightbox image' text */
+        .lightbox img {
+            font-size: 0; /* Hide the alt text */
+        }
+
+       /* Hide the img inside the .lightbox div */
+        .lightbox img {
+            display: none !important;
+        }
+
+        
+          /* ... Additional styles */
+        /* Additional styles for artwork section spacing */
+        #artwork-section h3 {
+            margin-bottom: -130px; /* Apply negative bottom margin for 'My Artwork' */
+        }
+        
+        #about-section p {
+            margin-top: 59px; /* Apply negative top margin for 'Explore my AI-inspired photos.' */
+        }
+
+
+      #gallery-section {
+            padding-top: 52px; /* instead of margin-top, use padding-top */
+        }
+
+        #gallery-section h3 {
+            margin-bottom: 10px; /* Reduce this value to decrease the space */
+        }
+        
+        #gallery-section p {
+            margin-top: 10px; /* Reduce or remove the top margin to bring the paragraph closer */
+        }
+
+
+         /* ... Additional styles */
+        
+        .character-item a, .character-item a:hover, .character-item a:active, .character-item a:visited {
+            text-decoration: none; /* Removes underline from links */
+        }
+        
+        .character-name, .character-description {
+            display: inline-block; /* Ensures the text respects the text-decoration property */
+        }
+        
+        /* Styles for character gallery */
+        .character-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+            grid-gap: 20px;
+            margin-bottom: 40px; /* Space between the rows */
+        }
+
+        .character-item {
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .character-item:hover {
+            transform: scale(1.05); /* Hover effect */
+        }
+
+        .character-avatar {
+            width: 80%;
+            height: auto;
+            margin: 0 auto; /* Center the avatar */
+            cursor: pointer; /* Changes cursor to indicate clickable items */
+            border-radius: 10px; /* Rounded corners for the avatar images */
+        }
+
+        .character-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .character-description {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* ... Additional styles */
+        #gallery-section {
+            margin-bottom: -100px; 
+        }
+        
+         #contact-section h3 {
+            margin-top: 50px; /* Apply negative bottom margin for 'My Artwork' */
+            margin-bottom: -50px; 
+        }
+        
+        #contact-section h3 + p {
+            margin-top: 0px
+            margin-bottom: 0px; /* Removes the bottom margin from the first paragraph */
+        }
+
+        #contact-section p + p {
+            margin-top: -22px; /* Removes the top margin from the last paragraph */
+             margin-bottom: 0px;
+        }
+        
+        #contact-section p:last-child {
+            margin-top: 8px; /* Removes the top margin from the last paragraph */
+             margin-bottom: 0px;
+        }
+
+        
+      /* ... Additional styles */
+        #contact-section {
+            margin-bottom: -12rem; /* Reduces space after the contact section */
+        }
+        
+        /* ... Additional styles */
+        section[aria-label="Subscribe example"] {
+            transform: scale(0.8);
+            transform-origin: top;
+        }
+
+        section[aria-label="Subscribe example"] {
+            margin-bottom: -70px; /* Reduce the bottom margin of the Stay Updated section */
+        }
+        
+        footer.container {
+            margin-top: 10px; /* Reduce the top margin of the footer */
+            margin-bottom: 0px; /* Optionally, reduce the padding if it's too large */
+        }
+        
+         /* ... Additional styles */
+
+   
+</style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+   <nav class="container-fluid">
+    <div class="navbar-header">
+        <!-- Logo as a non-clickable image -->
+        <img src="https://i.imgur.com/rCUK8Rc.png" alt="DreamArt Logo" class="nav-logo"/>
+
+         <!-- If you want the title next to the logo to be clickable, adjust as needed -->
+         <a href="javascript:void(0);" onclick="window.location.reload(true);" class="nav-title-link">
+            <strong>DreamArt</strong>
+        </a>
+            
+    </div>
+    <ul class="navbar-nav">
+        <li><a href="#about-section" class="nav-item">Gallery</a></li>
+        <li><a href="#gallery-section" class="nav-item">Games</a></li>
+        <li><a href="#contact-section" class="nav-item contact-btn" role="button">Contact</a></li>
+    </ul>
+</nav>
+    
+<main class="container">
+    <div class="hero-image">
+        <img src="https://i.imgur.com/Zdg7cxD.jpg" alt="Artwork by Shawn Lawrence" />
+        <div class="hero-text">
+            <h2>Shawn Lawrence</h2>
+        </div>
+    </div>
+    
+    <div class="grid" id="artwork-section">
+        <section>
+            <hgroup>
+                <h2 class="bold-authentic-text">Dream Boldly, Live Authentically.</h2>
+            </hgroup>
+            <hr class="section-divider"> <!-- Add this line -->
+            <h3>My Artwork</h3>
+            </section>
+    </div>
+
+         
+   <div class="grid" id="about-section">
+        <section>
+            <p>Explore my AI-inspired photos.</p>
+
+            <link rel="stylesheet" href="path_to_justified_gallery/justifiedGallery.min.css" />
+            <script src="path_to_jquery/jquery.min.js"></script>
+            <script src="path_to_justified_gallery/jquery.justifiedGallery.min.js"></script>
+            
+            <!-- Gallery start -->
+            <div class="artwork-gallery">
+                <a href="https://i.imgur.com/W5PuenR.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/W5PuenR.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/SpAfWPy.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/SpAfWPy.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/kMvBSuy.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/kMvBSuy.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/PV7oM5y.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/PV7oM5y.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/ctvLFtV.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/ctvLFtV.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/0ttmE5B.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/0ttmE5B.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/ZKK8cr4.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/ZKK8cr4.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/4DeEioV.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/4DeEioV.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/XxNuNcL.png" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/XxNuNcL.png" alt="" /></a>
+                <a href="https://i.imgur.com/QAcGc44.png" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/QAcGc44.png" alt="" /></a>
+                <a href="https://i.imgur.com/gUXKbKs.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/gUXKbKs.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/2jn4PeB.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/2jn4PeB.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/ylxT73Z.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/ylxT73Z.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/2jD7LBP.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/2jD7LBP.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/yiibTPi.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/yiibTPi.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/DxpkE0i.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/DxpkE0i.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/3ipWsri.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/3ipWsri.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/CdXnCK2.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/CdXnCK2.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/2nj1WJT.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/2nj1WJT.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/p4aweBP.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/p4aweBP.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/I5jTNgT.jpg" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/I5jTNgT.jpg" alt="" /></a>
+                <a href="https://i.imgur.com/BGgL9OJ.png" class="artwork-item" data-lightbox="gallery"><img src="https://i.imgur.com/BGgL9OJ.png" alt="" /></a>
+            </div>
+            
+
+
+        
+       <!-- You would have one lightbox element for all images -->
+            <div class="lightbox" id="lightbox">
+                <a href="#" class="close"></a>
+                <img src="" alt="Lightbox image"/>
+            </div>
+
+    
+            <script src="https://cdn.jsdelivr.net/npm/simplelightbox/dist/simple-lightbox.jquery.min.js"></script>
+
+
+    <div class="grid" id="gallery-section">
+        <section>
+            <h3>Have Some Fun</h3>
+            <p>Explore my AI-inspired game characters.</p>
+
+            <!-- Character gallery start -->
+            <div class="character-gallery">
+                <!-- Character 1 -->
+                <a href="https://chat.openai.com/g/g-mPrwRTD5u-ivana" class="character-item" target="_blank">
+                    <img src="https://i.imgur.com/1fU1LTC.png" alt="Ivana" class="character-avatar"/>
+                    <div class="character-name">Ivana</div>
+                    <div class="character-description">Your neighbor is a skilled music professor. What music-related inquiries might you seek her expertise for?</div>
+                </a>
+                <!-- Character 2 -->
+                <a href="https://chat.openai.com/g/g-CglvuJMiZ-sissi-the-forlorn-queen" class="character-item" target="_blank">
+                    <img src="https://i.imgur.com/H3y8zzn.png" alt="Sissi" class="character-avatar"/>
+                    <div class="character-name">Sissi</div>
+                    <div class="character-description">Sissi, feeling emotionally distant from you, is fatally attacked in a Geneva alley, and you arrive just as she speaks her last words.</div>
+                </a>
+                <!-- Character 3 -->
+                <a href="https://chat.openai.com/g/g-3jb9TfHWB-yumeno" class="character-item" target="_blank">
+                    <img src="https://i.imgur.com/JMFsv6r.png" alt="Yumeno" class="character-avatar"/>
+                    <div class="character-name">Yumeno</div>
+                    <div class="character-description">A devoted mother striving to enhance your academic performance.</div>
+                </a>
+                <!-- Character 4 -->
+                <a href="https://chat.openai.com/g/g-OLIWQYzHH-ekaterina-ii" class="character-item" target="_blank">
+                    <img src="https://i.imgur.com/kvOUqbd.png" alt="Ekaterina II" class="character-avatar"/>
+                    <div class="character-name">Ekaterina II</div>
+                    <div class="character-description">You can now talk with this ambitious queen.</div>
+                </a>
+                <!-- Character 5 -->
+                <a href="https://chat.openai.com/g/g-op3lgU24o-rachel-the-shy-literature-teacher" class="character-item" target="_blank">
+                    <img src="https://i.imgur.com/GomXNqd.png" alt="Rachel" class="character-avatar"/>
+                    <div class="character-name">Rachel</div>
+                    <div class="character-description">You meet Rachel, a girl who is newly becoming a literature teacher from a small southern village. She is determined to teach you about English literature.</div>
+                </a>
+                <!-- Character 6 -->
+                <a href="https://chat.openai.com/g/g-O9cM1doWm-jennifer" class="character-item" target="_blank">
+                    <img src="https://i.imgur.com/PBz0NB6.png" alt="Jennifer" class="character-avatar"/>
+                    <div class="character-name">Jennifer</div>
+                    <div class="character-description">A motherly figure, stands ready to guide you through the complexities of family dynamics.</div>
+                </a>
+            </div>
+            <!-- Character gallery end -->
+        </section>
+    </div>
+ 
+    <div class="grid" id="contact-section">
+        <section>
+            <h3>About Me</h3>
+            <p>A naughty boy who is interested in AI content.I hope you enjoyed my artwork.</p>
+            <p>I truly appreciate when you guys take time to provide thoughtful ideas and I read all of them.<br>
+                Your insights help me improve the quality and content of my future characters. Thanks again for your support.
+            </p>
+            <p>Please feel free to leave any feedback or suggestions to email me at SeanAI@skiff.com</p>
+   </section>
+    </div>
+            
+
+</main>
+<section aria-label="Subscribe example">
+    <div class="container">
+        <article>
+            <hgroup>
+                <h2>Stay Updated</h2>
+                <h3>Subscribe to DreamArt News</h3>
+            </hgroup>
+            <form class="grid">
+                <input type="text" id="firstname" name="firstname" placeholder="Your Name" aria-label="Your Name" required />
+                <input type="email" id="email" name="email" placeholder="Your Email" aria-label="Your Email" required />
+                <button type="submit" onclick="event.preventDefault()">Subscribe</button>
+            </form>
+        </article>
+    </div>
+</section>
+<footer class="container">
+    <small><a href="#privacy">Privacy Policy</a> • <a href="#terms">Terms & Conditions</a></small>
+</footer>
+
+<!-- External JS Libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simplelightbox/dist/simple-lightbox.jquery.min.js"></script>
+
+<!-- Inline Script -->
+<script>
+    $(document).ready(function() {
+        // Initialize SimpleLightbox for the gallery items
+        $('.artwork-gallery a').simpleLightbox();
+    });
+
+    window.onload = function() {
+        setTimeout(function() {
+            window.scrollTo(0, 0);
+        }, 1);
+    };
+
+    $(document).ready(function() {
+        // Initialize the justifiedGallery
+        $(".artwork-gallery").justifiedGallery({
+            rowHeight: 150,
+            lastRow: 'nojustify',
+            margins: 5
+        }).on('jg.complete', function () {
+            // Once justifiedGallery is complete, initialize simpleLightbox for the gallery items
+            var lightbox = $('.artwork-gallery a').simpleLightbox();
+
+            // Prevent default action for the gallery items
+            $('.artwork-gallery a').on('click', function(e) {
+                e.preventDefault(); // This line prevents the default action of the <a> tags (navigation)
+                var href = $(this).attr('href');
+                lightbox.open(href); // Opens the lightbox with the clicked image
+            });
+        });
+    });
+</script>
+
+
+
+
+    
 </body>
 </html>
